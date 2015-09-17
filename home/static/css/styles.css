@@ -59,11 +59,13 @@ ul.nav-options--hub li {
     margin: 0 30px;
 }
 
-ul.nav-options li:hover a {
+ul.nav-options li:hover a,
+ul.nav-options--hub li:hover a {
     opacity: 0.66;
 }
 
-ul.nav-options li a {
+ul.nav-options li a,
+ul.nav-options--hub li a {
     text-decoration: none;
     font-size: 16px;
     line-height: 16px;
@@ -265,7 +267,7 @@ h1.visual-art-by {
 
 .music-downloadable .album-wrapper .album .track-container {
     height: 100%;
-    padding: 25px 0 0 38px;
+    padding: 25px 0 0 24px;
     float: right;
     text-align: left;
     position: relative;
@@ -327,3 +329,9 @@ h1.visual-art-by {
 }
 
 /* Visual */
+
+
+/* ArtistHub */
+#artisthub_home .intro {
+    padding-top: 150px;
+}
