@@ -1,0 +1,50 @@
+{% load staticfiles %}
+
+{% include 'includes/page_wrapper.html' %}
+
+<div id="home">
+    <div class="page-wrapper">
+        <div class="content-wrapper">
+            {% include 'includes/header.html' %}
+
+            <section id="welcome-banner" class="welcome-banner">
+                <div class="bg-mask"
+                        data-target="#welcome-banner"
+                        data-center="opacity: 0;"
+                        data--75p-top="opacity: 1;"
+                        ></div>
+
+                <img src="{% static 'img/banner.png' %}"
+                        data-target="#welcome-banner"
+                        data-100-top="opacity: 0.7;"
+                        data--250-top="opacity: 0;"
+                        >
+                <h1 class="visual-art-by">Visual Art by Darkest Ritual</h1>
+
+                <p class="blurb"
+                        data-target="#welcome-banner"
+                        data-500-top="opacity: 0.8;"
+                        data--250-top="opacity: 0;">Darkest Ritual is about all types of art, not just music. We write music, we paint, we create all sorts of projects and things in the realm of the artistic. This page is dedicated to those projects of ours that are more visually focused rather than the solely musical.
+                    <p class="scroll">Scroll down to learn more.</p>
+                </p>
+            </section>
+
+
+            <main id="visual-art"
+                    data-bottom-top="background-position: 10% 40%"
+                    data-top-bottom="background-position: 10% 10%">
+
+            </main>
+
+            <script type="text/javascript">
+                $( document ).ready(function() {
+                    var s = skrollr.init({
+                        forceHeight: false,
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+{% load staticfiles %}
+
+{% include 'includes/page_wrapper.html' %}
+
+<div id="home">
+    <div class="page-wrapper">
+        <div class="content-wrapper">
+            {% include 'includes/header.html' %}
+
+            <section id="welcome-banner" class="welcome-banner">
+                <div class="bg-mask"
+                        data-target="#welcome-banner"
+                        data-center="opacity: 0;"
+                        data--75p-top="opacity: 1;"
+                        ></div>
+
+                <img src="{% static 'img/banner.png' %}"
+                        data-target="#welcome-banner"
+                        data-100-top="opacity: 0.7;"
+                        data--250-top="opacity: 0;"
+                        >
+                <h1 class="music-by">Music by Darkest Ritual</h1>
+
+                <p class="blurb"
+                        data-target="#welcome-banner"
+                        data-500-top="opacity: 0.8;"
+                        data--250-top="opacity: 0;">Darkest Ritual releases all of their music for free on the internet. It is our gift to you for your listening pleasure. Share it, play it publicly, just don&#47;t record your own versions of it, and remember to always give credit to us as a band. If you have any questions, feel free to <a href="contact.html">contact</a> us.
+
+                    <p class="scroll">Scroll down to learn more.</p>
+                </p>
+            </section>
+
+
+            <section id="music-downloadable" class="music-downloadable"
+                    data-bottom-top="background-position: 50% 10%"
+                    data-top-bottom="background-position: 55% 15%">
+
+                <span class="row most-recent album-wrapper"
+                        data-300-bottom="opacity: 0"
+                        data-10p-center="opacity: 1">
+                    <div class="album col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <div class="row">
+                            <div class="text-wrapper col-md-9">
+                                <h2>Profane Plague</h2>
+                                <p>Profane Plague is the next release in Darkest Ritual's catalogue. It, like all albums, will be available 100% free from this website and potentially other avenues.</p>
+                            </div>
+                            <div class="download-links col-md-3">
+                                <button class="btns download"><p>AAC</p></button>
+                                <button class="btns download"><p>MP3</p></button>
+                            </div>
+                        </div>
+                        <div style="clear:both"></div>
+                        <div class="row">
+                            <div class="album-art col-md-9">
+                                <img src="{% static 'img/album_art/profane_plague.jpg' %}" class="album-cover"/>
+                            </div>
+
+                            <div class="track-container col-md-3">
+                                <h4>Track List</h4>
+                                <ul class="track-list">
+                                    <li class="track">1. Child Of Your Greed</li>
+                                    <li class="track">2. The Call</li>
+                                    <li class="track">3. Blighted Gods</li>
+                                    <li class="track">4. Quietus</li>
+                                    <li class="track">5. Winter's Caress</li>
+                                    <li class="track">6. She Beckons From Beyond The Door</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+            </main>
+            <section id="music-downloadable-2" class="music-downloadable"
+                    data-bottom-top="background-position: 50% 10%"
+                    data-top-bottom="background-position: 55% 15%">
+                <span class="row album-wrapper"
+                        data-300-bottom="opacity: 0"
+                        data-10p-center="opacity: 1">
+                    <div class="album col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <div class="row">
+                            <div class="text-wrapper col-md-9">
+                                <h2>Time Leech</h2>
+                                <p>Time Leech represents one of Darkest Ritual's most progressive works yet, exploring many sonic avenues.</p>
+                            </div>
+                            <div class="download-links col-md-3">
+                                <button class="btns download"><p>AAC</p></button>
+                                <button class="btns download"><p>MP3</p></button>
+                            </div>
+                        </div>
+                        <div style="clear:both"></div>
+                        <div class="row">
+                            <div class="album-art col-md-9">
+                                <img src="{% static 'img/album_art/time_leech.jpg' %}" class="album-cover"/>
+                            </div>
+
+                            <div class="track-container col-md-3">
+                                <h4>Track List</h4>
+                                <ul class="track-list">
+                                    <li class="track">1. Heavenly Stars</li>
+                                    <li class="track">2. While The Moon Whispered</li>
+                                    <li class="track">3. Nightmare</li>
+                                    <li class="track">4. Selene</li>
+                                    <li class="track">5. Leeches</li>
+                                    <li class="track">6. The Breaking of Time and Space</li>
+                                    <li class="track">7. The Eye</li>
+                                </ul>
+                            </div>
+                            </div>
+                    </div>
+                </span>
+            </section>
+
+            <script type="text/javascript">
+                $( document ).ready(function() {
+                    var s = skrollr.init({
+                        forceHeight: false,
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+</html>
