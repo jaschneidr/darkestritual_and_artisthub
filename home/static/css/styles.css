@@ -4,6 +4,7 @@ body {
     background-color: #000;
     -webkit-transition: .15s;
     transition: .15s;
+    color: #fff;
 }
 
 a {
@@ -37,14 +38,23 @@ header#page-header {
     height: 70px;
 }
 
-ul.nav-options {
+ul.nav-options,
+ul.nav-options--hub {
     list-style-type: none;
-    width: 480px;
     padding: 0;
     margin: 30px auto;
 }
 
-ul.nav-options li {
+ul.nav-options {
+    width: 480px;
+}
+
+ul.nav-options--hub {
+    width: 640px;
+}
+
+ul.nav-options li,
+ul.nav-options--hub li {
     display: inline;
     margin: 0 30px;
 }

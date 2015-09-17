@@ -1,7 +1,7 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
 
-{% include 'includes/page_wrapper.html' %}
-
+{% block content %}
 <div id="home">
     <div class="page-wrapper">
         <div class="content-wrapper">
@@ -24,7 +24,7 @@
                 <p class="blurb"
                         data-target="#welcome-banner"
                         data-500-top="opacity: 0.8;"
-                        data--250-top="opacity: 0;">Darkest Ritual releases all of their music for free on the internet. It is our gift to you for your listening pleasure. Share it, play it publicly, just don&#47;t record your own versions of it, and remember to always give credit to us as a band. If you have any questions, feel free to <a href="contact.html">contact</a> us.
+                        data--250-top="opacity: 0;">Darkest Ritual releases all of their music for free on the internet. It is our gift to you for your listening pleasure. Share it, play it publicly, just don't record your own versions of it, and remember to always give credit to us as a band. If you have any questions, feel free to <a href="contact.html">contact</a> us.
 
                     <p class="scroll">Scroll down to learn more.</p>
                 </p>
@@ -120,5 +120,4 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+{% endblock %}
