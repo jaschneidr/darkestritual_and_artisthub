@@ -1,3 +1,11 @@
-django
-ipython
-django-extensions
+Django==1.8.4
+django-extensions==1.5.6
+django-jsonfield==0.9.15
+django-medialibrary==1.4.9
+django-model-utils==2.3.1
+djangorestframework==3.2.3
+gnureadline==6.3.3
+ipython==3.1.0
+psycopg2==2.6.1
+six==1.9.0
+wsgiref==0.1.2
