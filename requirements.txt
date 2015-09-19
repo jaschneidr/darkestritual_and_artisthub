@@ -4,6 +4,7 @@ django-jsonfield==0.9.15
 django-medialibrary==1.4.9
 django-model-utils==2.3.1
 djangorestframework==3.2.3
+factory-boy==2.5.2
 gnureadline==6.3.3
 ipython==3.1.0
 psycopg2==2.6.1
