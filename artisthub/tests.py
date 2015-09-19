@@ -23,12 +23,6 @@ class TestArtistHubViews(TestCase):
 
 class TestUserProfile(TestCase):
 
-    type_options = (
-        UserProfile.TYPE_AUTHOR,
-        UserProfile.TYPE_MUSICIAN,
-        UserProfile.TYPE_VISUALARTIST,
-    )
-
     def setUp(self):
         self.profile = UserProfileFactory()
 
@@ -37,25 +31,27 @@ class TestUserProfile(TestCase):
         self.assertTrue(self.profile.is_musician(), msg='With criteria met, a musician type profile returns false with .is_musician() method.')
 
     def test_profile_is_musician_returns_false_when_false(self):
-        self.profile.type = UserProfile.TYPE_AUTHOR
-        self.assertFalse(self.profile.is_musician(), msg='Without criteria met, a non-musician type profile is returning true with the .is_musician() method.')
+        for profile_type in [option[0] for option in UserProfile.TYPES if option[0] not in UserProfile.TYPE_MUSICIAN]:
+            self.profile.type = type
+            self.assertFalse(self.profile.is_musician(), msg='Without criteria met, a profile object with type "{0}" returns true when .is_musician() is called.'.format(profile_type))
 
     def test_profile_is_author_returns_true_when_true(self):
         self.profile.type = UserProfile.TYPE_AUTHOR
         self.assertTrue(self.profile.is_author(), msg='With criteria met, an author type profile returns false with the .is_author() method.')
 
     def test_profile_is_author_returns_false_when_false(self):
-        self.profile.type = UserProfile.TYPE_VISUALARTIST
-        self.assertFalse(self.profile.is_author(), msg='Without criteria met, a non author type profile returns true with the .is_author() method.')
+        for profile_type in [option[0] for option in UserProfile.TYPES if option[0] not in UserProfile.TYPE_AUTHOR]:
+            self.profile.type = type
+            self.assertFalse(self.profile.is_author(), msg='Without criteria met, a profile object with type "{0}" returns true when .is_author() is called.'.format(profile_type))
 
     def test_profile_is_visual_artist_returns_true_when_true(self):
         self.profile.type = UserProfile.TYPE_VISUALARTIST
         self.assertTrue(self.profile.is_visual_artist(), msg='With criteria met, a visual artist type profile returns false when .is_visual_artist() method should return true.')
 
     def test_profile_is_visual_artist_returns_false_when_false(self):
-        self.profile.type = UserProfile.TYPE_MUSICIAN
-        self.assertFalse(self.profile.is_visual_artist(), msg='Without criteria met, a non-visual artist type profile returns true when .is_visual_artist() method should return true.')
-
+        for profile_type in [option[0] for option in UserProfile.TYPES if option[0] not in UserProfile.TYPE_VISUALARTIST]:
+            self.profile.type = type
+            self.assertFalse(self.profile.is_visual_artist(), msg='Without criteria met, a profile object with type "{0}" returns true when .is_visual_artist() is called.'.format(profile_type))
 
 class TestMusician(TestCase):
 
