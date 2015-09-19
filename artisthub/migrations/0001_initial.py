@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=100, blank=True)),
-                ('type', models.CharField(db_index=True, max_length=1, choices=[(b'A', b'Author'), (b'V', b'Visual Artist'), (b'M', b'Musician')])),
+                ('profile_type', models.CharField(db_index=True, max_length=1, choices=[(b'A', b'Author'), (b'V', b'Visual Artist'), (b'M', b'Musician')])),
                 ('artist_name', models.CharField(max_length=140, null=True, blank=True)),
                 ('website', models.URLField(max_length=256, null=True, blank=True)),
                 ('bio', models.TextField(max_length=100000, null=True, blank=True)),

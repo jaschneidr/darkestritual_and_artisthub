@@ -18,7 +18,7 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User)
     name = models.CharField(max_length=100, blank=True)
-    type = models.CharField(max_length=1, choices=TYPES, db_index=True)
+    profile_type = models.CharField(max_length=1, choices=TYPES, db_index=True)
     artist_name = models.CharField(max_length=140, blank=True, null=True)
     website = models.URLField(max_length=256, blank=True, null=True)
     bio = models.TextField(max_length=100000, blank=True, null=True)
@@ -26,15 +26,25 @@ class UserProfile(models.Model):
 
 
     def is_author(self):
-        return self.type == UserProfile.TYPE_AUTHOR
+        return self.profile_type == UserProfile.TYPE_AUTHOR
 
     def is_visual_artist(self):
-        return self.type == UserProfile.TYPE_VISUALARTIST
+        return self.profile_type == UserProfile.TYPE_VISUALARTIST
 
     def is_musician(self):
-        return self.type == UserProfile.TYPE_MUSICIAN
+        return self.profile_type == UserProfile.TYPE_MUSICIAN
 
-    # def get_profile_type
+    def create_musician(self, subtype):
+        musician = False
+
+        try:
+            musician = Musician.objects.get(profile=self)
+        except:
+            pass
+
+        if self.is_musician() and not musician:
+            musician = Musician.objects.create(profile=self, subtype=subtype)
+            musician.save()
 
 
 class Author(UserProfile):

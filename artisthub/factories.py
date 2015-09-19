@@ -19,7 +19,7 @@ class UserProfileFactory(factory.django.DjangoModelFactory):
     website = factory.Sequence(lambda n: u'http://www.{0}.com'.format(n))
     bio = factory.Sequence(lambda n: u'We are {0} times better than you would expect!'.format(n))
     influences = factory.Sequence(lambda n: u'We have {0} influences, so it would be hard to list them all.'.format(n))
-    type = UserProfile.TYPE_MUSICIAN
+    profile_type = UserProfile.TYPE_MUSICIAN
 
 
 class MusicianFactory(factory.django.DjangoModelFactory):
