@@ -20,6 +20,14 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Author',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('pen_name', models.CharField(max_length=140, null=True, blank=True)),
+                ('dedication', models.TextField(max_length=5000, null=True, blank=True)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Band',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -67,6 +75,15 @@ class Migration(migrations.Migration):
                 ('website', models.URLField(max_length=256, null=True, blank=True)),
                 ('bio', models.TextField(max_length=100000, null=True, blank=True)),
                 ('influences', models.TextField(max_length=100000, null=True, blank=True)),
+                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='VisualArtist',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('dedication', models.TextField(max_length=5000, null=True, blank=True)),
+                ('profile', models.OneToOneField(to='artisthub.UserProfile')),
             ],
         ),
         migrations.CreateModel(
@@ -74,29 +91,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('range', models.CharField(max_length=60, null=True, blank=True)),
+                ('musician', models.OneToOneField(to='artisthub.Musician')),
             ],
-        ),
-        migrations.CreateModel(
-            name='Author',
-            fields=[
-                ('userprofile_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='artisthub.UserProfile')),
-                ('pen_name', models.CharField(max_length=140, null=True, blank=True)),
-                ('dedication', models.TextField(max_length=5000, null=True, blank=True)),
-            ],
-            bases=('artisthub.userprofile',),
-        ),
-        migrations.CreateModel(
-            name='VisualArtist',
-            fields=[
-                ('userprofile_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='artisthub.UserProfile')),
-                ('dedication', models.TextField(max_length=5000, null=True, blank=True)),
-            ],
-            bases=('artisthub.userprofile',),
-        ),
-        migrations.AddField(
-            model_name='userprofile',
-            name='user',
-            field=models.OneToOneField(to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='musician',
@@ -107,6 +103,26 @@ class Migration(migrations.Migration):
             model_name='musicalbum',
             name='musician',
             field=models.ForeignKey(related_name='artists_albums', to='artisthub.Musician'),
+        ),
+        migrations.AddField(
+            model_name='instrumentalist',
+            name='musician',
+            field=models.OneToOneField(to='artisthub.Musician'),
+        ),
+        migrations.AddField(
+            model_name='composer',
+            name='musician',
+            field=models.OneToOneField(to='artisthub.Musician'),
+        ),
+        migrations.AddField(
+            model_name='band',
+            name='musician',
+            field=models.OneToOneField(to='artisthub.Musician'),
+        ),
+        migrations.AddField(
+            model_name='author',
+            name='profile',
+            field=models.OneToOneField(to='artisthub.UserProfile'),
         ),
         migrations.AddField(
             model_name='audioupload',

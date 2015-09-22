@@ -5,7 +5,10 @@ from django.test.client import RequestFactory
 
 
 from .factories import UserProfileFactory, MusicianFactory
-from .models import UserProfile, Musician
+from .models import (
+    UserProfile, Author, Musician, VisualArtist,
+    Band, Composer, Instrumentalist, Vocalist
+)
 
 from artisthub.views import *
 
@@ -64,6 +67,47 @@ class TestUserProfile(TestCase):
             self.profile.create_musician(subtype=Musician.SUBTYPE_VOCALIST)
             with self.assertRaises(Musician.DoesNotExist, msg='With profile_type "{0}", a musician object created anyway when it should not have.'.format(profile_type)):
                 Musician.objects.get(profile=self.profile)
+
+    def test_profile_create_author_with_conditions_met(self):
+        self.profile.profile_type = UserProfile.TYPE_AUTHOR
+        self.profile.create_author()
+        self.assertTrue(Author.objects.get(profile=self.profile), msg='Author object does not save with conditions met.')
+
+    def test_profile_create_author_without_is_musician_condition_met(self):
+        for profile_type in [option[0] for option in UserProfile.TYPES if option[0] not in UserProfile.TYPE_AUTHOR]:
+            self.profile.profile_type = profile_type
+            self.profile.create_author()
+            with self.assertRaises(Author.DoesNotExist, msg='With profile_type "{0}", an author object created anyway when it should not have.'.format(profile_type)):
+                Author.objects.get(profile=self.profile)
+
+    def test_profile_create_visual_artist_with_conditions_met(self):
+        self.profile.profile_type = UserProfile.TYPE_VISUALARTIST
+        self.profile.create_visual_artist()
+        self.assertTrue(VisualArtist.objects.get(profile=self.profile), msg='VisualArtist object does not save with conditions met.')
+
+    def test_profile_create_visual_artist_without_is_musician_condition_met(self):
+        for profile_type in [option[0] for option in UserProfile.TYPES if option[0] not in UserProfile.TYPE_VISUALARTIST]:
+            self.profile.profile_type = profile_type
+            self.profile.create_visual_artist()
+            with self.assertRaises(VisualArtist.DoesNotExist, msg='With profile_type "{0}", a VisualArtist object created anyway when it should not have.'.format(profile_type)):
+                VisualArtist.objects.get(profile=self.profile)
+
+    # Test get_additional_artist_objects
+                # 1 Test that it does not return an incorrect additional artist object for the profile type
+                # 2 Test that it _does_ return the correct additional artist object
+    def test_get_additional_artist_object_musician(self):
+        self.profile.profile_type = UserProfile.TYPE_MUSICIAN
+        self.profile.create_musician(subtype=Musician.SUBTYPE_BAND)
+        self.profile.get_additional_artist_object()
+        musician = False
+        try:
+            musician = Musician.objects.get(profile=self.profile)
+        except Musician.DoesNotExist:
+            pass
+
+        self.assertTrue(musician, msg='With profile_type TYPE_MUSICIAN, userprofile.get_additional_artist_object() does not return a musician object.')
+
+
 
 
 class TestMusician(TestCase):

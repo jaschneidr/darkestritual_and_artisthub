@@ -7,13 +7,13 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     TYPE_AUTHOR = 'A'
-    TYPE_VISUALARTIST = 'V'
     TYPE_MUSICIAN = 'M'
+    TYPE_VISUALARTIST = 'V'
 
     TYPES = (
         (TYPE_AUTHOR, 'Author'),
-        (TYPE_VISUALARTIST, 'Visual Artist'),
         (TYPE_MUSICIAN, 'Musician'),
+        (TYPE_VISUALARTIST, 'Visual Artist'),
     )
 
     user = models.OneToOneField(User)
@@ -24,17 +24,40 @@ class UserProfile(models.Model):
     bio = models.TextField(max_length=100000, blank=True, null=True)
     influences = models.TextField(max_length=100000, blank=True, null=True)
 
+    def create_author(self):
+
+        try:
+            author = Author.objects.get(profile=self)
+        except Author.DoesNotExist:
+            if self.is_author():
+                author = Author.objects.create(profile=self)
+                author.save()
+
     def create_musician(self, subtype):
-        musician = False
 
         try:
             musician = Musician.objects.get(profile=self)
         except Musician.DoesNotExist:
-            pass
+            if self.is_musician():
+                musician = Musician.objects.create(profile=self, subtype=subtype)
+                musician.save()
 
-        if self.is_musician() and not musician:
-            musician = Musician.objects.create(profile=self, subtype=subtype)
-            musician.save()
+    def create_visual_artist(self):
+
+        try:
+            visual_artist = VisualArtist.objects.get(profile=self)
+        except VisualArtist.DoesNotExist:
+            if self.is_visual_artist():
+                visual_artist = VisualArtist.objects.create(profile=self)
+                visual_artist.save()
+
+    def get_additional_artist_object(self):
+        if self.is_author():
+            return Author.objects.get(profile=self)
+        if self.is_musician():
+            return Musician.objects.get(profile=self)
+        if self.is_visual_artist():
+            return VisualArtist.objects.get(profile=self)
 
     def is_author(self):
         return self.profile_type == UserProfile.TYPE_AUTHOR
@@ -46,14 +69,14 @@ class UserProfile(models.Model):
         return self.profile_type == UserProfile.TYPE_VISUALARTIST
 
 
-class Author(UserProfile):
-
+class Author(models.Model):
+    profile = models.OneToOneField(UserProfile)
     pen_name = models.CharField(max_length=140, blank=True, null=True)
     dedication = models.TextField(max_length=5000, blank=True, null=True)
 
 
-class VisualArtist(UserProfile):
-
+class VisualArtist(models.Model):
+    profile = models.OneToOneField(UserProfile)
     dedication = models.TextField(max_length=5000, blank=True, null=True)
 
 
@@ -91,22 +114,26 @@ class Musician(models.Model):
 
 class Band(models.Model):
 
+    musician = models.OneToOneField(Musician)
     members = models.TextField(max_length=256, blank=True, null=True)
     established_date = models.DateField(blank=True, null=True)
 
 
 class Instrumentalist(models.Model):
 
+    musician = models.OneToOneField(Musician)
     instrument = models.CharField(max_length=256)
 
 
 class Composer(models.Model):
 
+    musician = models.OneToOneField(Musician)
     instruments_composed_for = models.TextField(max_length=1000, blank=True, null=True)
 
 
 class Vocalist(models.Model):
 
+    musician = models.OneToOneField(Musician)
     range = models.CharField(max_length=60, blank=True, null=True)
 
 
