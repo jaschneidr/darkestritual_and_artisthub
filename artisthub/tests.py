@@ -62,12 +62,8 @@ class TestUserProfile(TestCase):
         for profile_type in [option[0] for option in UserProfile.TYPES if option[0] not in UserProfile.TYPE_MUSICIAN]:
             self.profile.profile_type = profile_type
             self.profile.create_musician(subtype=Musician.SUBTYPE_VOCALIST)
-            musician = False
-            try:
+            with self.assertRaises(Musician.DoesNotExist, msg='With profile_type "{0}", a musician object created anyway when it should not have.'.format(profile_type)):
                 Musician.objects.get(profile=self.profile)
-            except:
-                pass
-            self.assertFalse(musician, msg='With profile_type "{0}", a musician object created anyway when it should not have.'.format(profile_type))
 
 
 class TestMusician(TestCase):

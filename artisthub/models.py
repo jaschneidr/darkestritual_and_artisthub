@@ -24,27 +24,26 @@ class UserProfile(models.Model):
     bio = models.TextField(max_length=100000, blank=True, null=True)
     influences = models.TextField(max_length=100000, blank=True, null=True)
 
-
-    def is_author(self):
-        return self.profile_type == UserProfile.TYPE_AUTHOR
-
-    def is_visual_artist(self):
-        return self.profile_type == UserProfile.TYPE_VISUALARTIST
-
-    def is_musician(self):
-        return self.profile_type == UserProfile.TYPE_MUSICIAN
-
     def create_musician(self, subtype):
         musician = False
 
         try:
             musician = Musician.objects.get(profile=self)
-        except:
+        except Musician.DoesNotExist:
             pass
 
         if self.is_musician() and not musician:
             musician = Musician.objects.create(profile=self, subtype=subtype)
             musician.save()
+
+    def is_author(self):
+        return self.profile_type == UserProfile.TYPE_AUTHOR
+
+    def is_musician(self):
+        return self.profile_type == UserProfile.TYPE_MUSICIAN
+
+    def is_visual_artist(self):
+        return self.profile_type == UserProfile.TYPE_VISUALARTIST
 
 
 class Author(UserProfile):
