@@ -14,12 +14,15 @@ class UserProfile(models.Model):
     )
 
     user = models.OneToOneField(User)
-    name = models.CharField(max_length=100, blank=True)
-    profile_type = models.CharField(max_length=1, choices=TYPES, db_index=True)
-    artist_name = models.CharField(max_length=140, blank=True, null=True)
-    website = models.URLField(max_length=256, blank=True, null=True)
-    bio = models.TextField(max_length=100000, blank=True, null=True)
-    influences = models.TextField(max_length=100000, blank=True, null=True)
+    name = models.CharField('Name', max_length=140, blank=True)
+    profile_type = models.CharField('Artist Type', max_length=1, choices=TYPES, db_index=True)
+    artist_name = models.CharField('Artist Name', max_length=140, blank=True, null=True)
+    website = models.URLField('Artist Website', max_length=140, blank=True, null=True)
+    bio = models.TextField('About The Artist', max_length=100000, blank=True, null=True)
+    influences = models.TextField('Influences', max_length=100000, blank=True, null=True)
+    location = models.CharField('Location', max_length=140, blank=True)
+    facebook = models.CharField('Facebook', max_length=256, blank=True, null=True)
+    twitter = models.CharField('Twitter', max_length=256, blank=True, null=True)
 
     def create_author(self):
 

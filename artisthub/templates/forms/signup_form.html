@@ -1,0 +1,32 @@
+{% extends 'artisthub_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% include 'includes/artisthub_header.html' %}
+
+<form id="frmSignup" action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-field input">
+        <label>{{ form.username.label }}</label>
+        {{ form.username }}
+    </div>
+    <div class="form-field input">
+        <label>{{ form.email.label }}</label>
+        {{ form.email }}
+    </div>
+    <div class="form-field input">
+        <label>{{ form.password.label }}</label>
+        {{ form.password }}
+    </div>
+    <div class="form-field input">
+        <label>{{ form.confirm_password.label }}</label>
+        {{ form.confirm_password }}
+    </div>
+    <div class="form-field input">
+        <label>{{ form.artist_type.label }}</label>
+        {{ form.artist_type }}
+    </div>
+</form>
+
+{% endblock %}
